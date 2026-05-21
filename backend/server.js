@@ -21,6 +21,6 @@ app.use(express.json());
 
 app.use("/", urlRoutes);
 
-app.listen(3000, () => {
-  console.log("Server is working correctly");
+app.listen(PORT, () => {
+  console.log("Server is listening at port:", PORT);
 });
