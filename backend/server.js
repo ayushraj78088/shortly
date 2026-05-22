@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import connectDB from "./src/config/db.js";
 import cors from "cors";
 import urlRoutes from "./src/routes/url.routes.js";
+import errorMiddleware from "./src/middlewares/errorMiddleware.js";
+import { redirectToOriginalUrl } from "./src/controllers/url.controller.js";
 
 dotenv.config();
 connectDB();
@@ -20,7 +22,10 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", urlRoutes);
+app.use("/api/url", urlRoutes);
+app.get("/:shorten", redirectToOriginalUrl);
+
+app.use(errorMiddleware);
 
 app.listen(PORT, () => {
   console.log("Server is listening at port:", PORT);
