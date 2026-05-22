@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from "./src/utils/db.js";
+import connectDB from "./src/config/db.js";
 import cors from "cors";
-import urlRoutes from "./src/routes/url.js";
+import urlRoutes from "./src/routes/url.routes.js";
 
 dotenv.config();
 connectDB();
@@ -18,6 +18,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/", urlRoutes);
 

@@ -1,10 +1,7 @@
-import express from "express";
-import Url from "../models/Url.js";
-import { nanoid } from "nanoid";
+import Url from "../models/url.model.js";
+import { generateShortId } from "../utils/generateShortId.js";
 
-const router = express.Router();
-
-router.post("/shorten", async (req, res) => {
+export const createShortUrl = async (req, res) => {
   try {
     const { originalUrl } = req.body;
 
@@ -22,7 +19,7 @@ router.post("/shorten", async (req, res) => {
     let exists = true;
 
     while (exists) {
-      shortId = nanoid(7);
+      shortId = generateShortId(7);
       exists = await Url.findOne({ shortId }); // to be sure that shortId remains unique
     }
 
@@ -39,9 +36,9 @@ router.post("/shorten", async (req, res) => {
     console.log(error);
     res.status(500).json({ error: "Server error" });
   }
-});
+};
 
-router.get("/:shortId", async (req, res) => {
+export const redirectToOriginal = async (req, res) => {
   try {
     const { shortId } = req.params;
 
@@ -55,6 +52,4 @@ router.get("/:shortId", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
-});
-
-export default router;
+};

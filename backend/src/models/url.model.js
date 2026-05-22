@@ -10,10 +10,15 @@ const urlSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      index: true,
     },
     clicks: {
       type: Number,
       default: 0,
+    },
+    use: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }, // automatically creates created_at and updated_at
