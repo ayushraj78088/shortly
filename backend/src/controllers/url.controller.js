@@ -36,8 +36,7 @@ export const createShortUrl = asyncHandler(async (req, res) => {
 });
 
 export const redirectToOriginalUrl = asyncHandler(async (req, res) => {
-  const { shortId } = req.params;
-
+  const shortId = req.params.shorten;
   const url = await Url.findOne({ shortId });
   if (!url) throw new ErrorHandler("URL not found", 404);
 
