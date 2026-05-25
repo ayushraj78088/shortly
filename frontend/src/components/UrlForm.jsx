@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-
-const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
+import { createShortUrl } from "../api/shortUrl.api";
 
 const UrlForm = () => {
   const [url, setUrl] = useState("");
@@ -13,11 +12,8 @@ const UrlForm = () => {
     if (!url) return;
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/url/shorten`, {
-        originalUrl: url,
-      });
-
-      const newShortUrl = response.data.shortUrl;
+      const newShortUrl = await createShortUrl(url);
+      console.log(newShortUrl);
       setShortUrl(newShortUrl);
       setCopied(false);
     } catch (error) {
@@ -52,9 +48,7 @@ const UrlForm = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline focus:outline-sky-500"
           />
         </div>
-        <button
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 cursor-pointer"
-        >
+        <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 cursor-pointer">
           Shorten URL
         </button>
       </form>
@@ -72,14 +66,7 @@ const UrlForm = () => {
             />
 
             <button
-              onClick={() => {
-                navigator.clipboard.writeText(shortUrl);
-                setCopied(true);
-
-                setTimeout(() => {
-                  setCopied(false);
-                }, 2000);
-              }}
+              onClick={handleCopy}
               className={`px-4 py-2 font-medium transition-all duration-300 ${
                 copied
                   ? "bg-green-500 text-white"
