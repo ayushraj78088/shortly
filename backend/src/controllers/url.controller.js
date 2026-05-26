@@ -1,5 +1,9 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import Url from "../models/url.model.js";
+import {
+  createUrlWithoutUser,
+  createUrlWithUser,
+} from "../services/url.services.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import { generateShortId } from "../utils/generateShortId.js";
 
@@ -10,28 +14,15 @@ export const createShortUrl = asyncHandler(async (req, res) => {
     throw new ErrorHandler("URL is required", 400);
   }
 
-  try {
-    new URL(originalUrl);
-  } catch (error) {
-    throw new ErrorHandler("Invalid URL", 400);
+  if (req.user) {
+    const shortUrl = await createUrlWithUser(originalUrl, req.user._id);
+  } else {
+    const shortUrl = await createUrlWithoutUser(originalUrl);
   }
-
-  let shortId;
-  let exists = true;
-
-  while (exists) {
-    shortId = generateShortId(7);
-    exists = await Url.findOne({ shortId }); // to be sure that shortId remains unique
-  }
-
-  const url = await Url.create({
-    shortId,
-    originalUrl,
-  });
 
   res.status(201).json({
-    shortId: url.shortId,
-    shortUrl: `${process.env.BASE_URL}/${url.shortId}`,
+    shortId: shortUrl.shortId,
+    shortUrl: `${process.env.BASE_URL}/${shortUrl.shortId}`,
   });
 });
 
@@ -44,4 +35,26 @@ export const redirectToOriginalUrl = asyncHandler(async (req, res) => {
   await url.save();
 
   return res.redirect(url.originalUrl);
+});
+
+export const createCustomShortUrl = asyncHandler(async (req, res) => {
+  const { originalUrl, customShortId } = req.body;
+
+  if (!originalUrl || !customShortId) {
+    throw new ErrorHandler(
+      "Original URL and custom short ID are required",
+      400,
+    );
+  }
+
+  const shortUrl = await createUrlWithUser(
+    originalUrl,
+    req.user._id,
+    customShortId,
+  );
+
+  res.status(201).json({
+    shortId: shortUrl.shortId,
+    shortUrl: `${process.env.BASE_URL}/${shortUrl.shortId}`,
+  });
 });

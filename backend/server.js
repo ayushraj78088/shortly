@@ -3,8 +3,10 @@ import dotenv from "dotenv";
 import connectDB from "./src/config/db.js";
 import cors from "cors";
 import urlRoutes from "./src/routes/url.routes.js";
+import authRoutes from "./src/routes/auth.routes.js";
 import errorMiddleware from "./src/middlewares/errorMiddleware.js";
 import { redirectToOriginalUrl } from "./src/controllers/url.controller.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 connectDB();
@@ -19,9 +21,12 @@ app.use(
   }),
 );
 
+app.use(cookieParser());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/api/auth", authRoutes);
 app.use("/api/url", urlRoutes);
 app.get("/:shorten", redirectToOriginalUrl);
 
