@@ -13,7 +13,6 @@ const UrlForm = () => {
 
     try {
       const newShortUrl = await createShortUrl(url);
-      console.log(newShortUrl);
       setShortUrl(newShortUrl);
       setCopied(false);
     } catch (error) {
@@ -58,16 +57,18 @@ const UrlForm = () => {
           <h2 className="text-lg font-semibold mb-2">Your shortened URL:</h2>
 
           <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
-            <input
-              type="text"
-              value={shortUrl}
-              readOnly
-              className="flex-1 p-2 outline-none bg-white"
-            />
+            <a
+              href={shortUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 p-2 block truncate hover:underline"
+            >
+              {shortUrl}
+            </a>
 
             <button
               onClick={handleCopy}
-              className={`px-4 py-2 font-medium transition-all duration-300 ${
+              className={`px-4 py-2 font-medium transition-all duration-300 cursor-pointer ${
                 copied
                   ? "bg-green-500 text-white"
                   : "bg-gray-200 hover:bg-gray-300 text-black"
