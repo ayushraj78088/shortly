@@ -1,4 +1,5 @@
 import Url from "../models/url.model.js";
+import ErrorHandler from "../utils/errorHandler.js";
 import { generateShortId } from "../utils/generateShortId.js";
 
 export const createUrlWithoutUser = async (originalUrl) => {

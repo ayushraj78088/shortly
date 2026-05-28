@@ -7,17 +7,14 @@ export const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
   const user = await registerUser(name, email, password);
-  console.log(user);
 
   const accessToken = generateAccessToken(user._id);
-  console.log(accessToken);
 
   res.cookie("accessToken", accessToken, cookieOptions);
 
   res.status(201).json({
     success: true,
     message: "User registered",
-    user,
   });
 });
 
@@ -27,13 +24,11 @@ export const login = asyncHandler(async (req, res) => {
   const user = await loginUser(email, password);
 
   const accessToken = generateAccessToken(user._id);
-  console.log(accessToken);
 
   res.cookie("accessToken", accessToken, cookieOptions);
 
   res.status(201).json({
     success: true,
     message: "User logged in",
-    user,
   });
 });

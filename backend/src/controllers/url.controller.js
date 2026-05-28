@@ -14,10 +14,11 @@ export const createShortUrl = asyncHandler(async (req, res) => {
     throw new ErrorHandler("URL is required", 400);
   }
 
+  let shortUrl;
   if (req.user) {
-    const shortUrl = await createUrlWithUser(originalUrl, req.user._id);
+    shortUrl = await createUrlWithUser(originalUrl, req.user._id);
   } else {
-    const shortUrl = await createUrlWithoutUser(originalUrl);
+    shortUrl = await createUrlWithoutUser(originalUrl);
   }
 
   res.status(201).json({
