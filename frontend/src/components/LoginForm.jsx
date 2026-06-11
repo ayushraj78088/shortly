@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { loginUser } from "../api/user.api";
+import useUserStore from "../store/useUserStore";
+import { useNavigate } from "react-router";
 
 const LoginForm = ({ state }) => {
   const [email, setEmail] = useState("ayush@gmail.com");
   const [password, setPassword] = useState("12345678");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const setUser = useUserStore((state) => state.setUser);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +20,9 @@ const LoginForm = ({ state }) => {
     setError("");
 
     try {
-      const user = await loginUser(email, password);
+      const data = await loginUser(email, password);
+      setUser(data.user);
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.error || "Something went wrong");
     } finally {
@@ -63,6 +71,8 @@ const LoginForm = ({ state }) => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline focus:outline-sky-500"
           />
         </div>
+
+        {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
 
         <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 cursor-pointer">
           Login

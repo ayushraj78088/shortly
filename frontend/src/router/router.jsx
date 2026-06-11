@@ -3,6 +3,7 @@ import RootLayout from "../layouts/RootLayout";
 import HomePage from "../pages/HomePage";
 import AuthPage from "../pages/AuthPage";
 import DashboardPage from "../pages/DashboardPage";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,14 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "auth", element: <AuthPage /> },
-      { path: "dashboard", element: <DashboardPage /> },
+      {
+        path: "dashboard",
+        element: (
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
