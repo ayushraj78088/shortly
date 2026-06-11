@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      select: false, // mongoose will not return the password by default
     },
   },
   { timestamps: true },

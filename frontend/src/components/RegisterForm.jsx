@@ -16,9 +16,8 @@ const RegisterForm = ({ state }) => {
 
     try {
       const user = await registerUser(name, email, password);
-      console.log(user.message);
-    } catch (error) {
-      setError(error.response?.data?.error || "Something went wrong");
+    } catch (err) {
+      setError(err.response?.data?.error || "Something went wrong");
     } finally {
       setLoading(false);
     }

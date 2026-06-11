@@ -8,17 +8,21 @@ export const registerUser = async (name, email, password) => {
   const newUser = new User({ name, email, password });
   await newUser.save();
 
+  newUser.password = undefined; // remove password
+
   return newUser;
 };
 
 export const loginUser = async (email, password) => {
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select("+password");
 
   if (!user) throw new ErrorHandler("Invalid credentials", 400);
 
   const isPasswordValid = await user.comparePassword(password);
 
   if (!isPasswordValid) throw new ErrorHandler("Invalid credentials", 400);
+
+  user.password = undefined; // remove password
 
   return user;
 };
