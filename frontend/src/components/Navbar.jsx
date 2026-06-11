@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { getCurrentUser } from "../api/user.api";
 
 function Navbar() {
   return (

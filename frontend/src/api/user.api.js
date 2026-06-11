@@ -16,3 +16,8 @@ export const loginUser = async (email, password) => {
   });
   return data;
 };
+
+export const getCurrentUser = async () => {
+  const { data } = await axiosInstance.get("/api/auth/me");
+  return data.user;
+};
