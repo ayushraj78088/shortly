@@ -14,8 +14,11 @@ export const registerUser = async (name, email, password) => {
 export const loginUser = async (email, password) => {
   const user = await User.findOne({ email });
 
-  if (!user || user.password !== password)
-    throw new ErrorHandler("Invalid credentials", 400);
+  if (!user) throw new ErrorHandler("Invalid credentials", 400);
+
+  const isPasswordValid = await user.comparePassword(password);
+
+  if (!isPasswordValid) throw new ErrorHandler("Invalid credentials", 400);
 
   return user;
 };

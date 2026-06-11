@@ -59,7 +59,7 @@ const LoginForm = ({ state }) => {
             id="password"
             name="password"
             value={password}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline focus:outline-sky-500"
           />
