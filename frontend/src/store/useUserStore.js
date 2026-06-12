@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 import { getCurrentUser } from "../api/user.api";
 
 const useUserStore = create((set) => ({

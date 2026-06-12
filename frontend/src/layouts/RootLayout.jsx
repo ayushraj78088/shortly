@@ -6,9 +6,11 @@ import useUserStore from "../store/useUserStore";
 const RootLayout = () => {
   const checkAuth = useUserStore((state) => state.checkAuth);
 
+  // checks whether the user is authenticated
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
   return (
     <div>
       <Navbar />
