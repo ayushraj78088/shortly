@@ -41,21 +41,11 @@ const AnalyticsPage = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Link
-            to="/dashboard"
-            className="flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-blue-500 hover:text-white"
-          >
-            <ArrowLeft size={16} />
-            Dashboard
-          </Link>
-
-          <div className="rounded-xl bg-blue-50 px-4 py-2">
-            <p className="text-sm text-gray-500">Total URLs</p>
-            <p className="text-xl font-bold text-blue-600 text-center">
-              {urls.length}
-            </p>
-          </div>
+        <div className="rounded-xl bg-blue-50 px-4 py-2">
+          <p className="text-sm text-gray-500">Total URLs</p>
+          <p className="text-xl font-bold text-blue-600 text-center">
+            {urls.length}
+          </p>
         </div>
       </div>
 
