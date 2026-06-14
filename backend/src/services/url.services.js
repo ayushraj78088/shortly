@@ -47,3 +47,16 @@ export const createUrlWithUser = async (
 
   return url;
 };
+
+export const getUrls = async (userId) => {
+  const urls = await Url.find({ user: userId });
+
+  if (!urls) throw new ErrorHandler("No urls created", 500);
+
+  const formattedUrls = urls.map((url) => ({
+    ...url.toObject(),
+    shortUrl: `${process.env.BASE_URL}/${url.shortId}`,
+  }));
+
+  return formattedUrls;
+};

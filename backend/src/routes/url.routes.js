@@ -2,6 +2,7 @@ import express from "express";
 import {
   createCustomShortUrl,
   createShortUrl,
+  getUserUrls,
 } from "../controllers/url.controller.js";
 import { authMiddleware, requireAuth } from "../middlewares/auth.middleware.js";
 
@@ -14,5 +15,6 @@ router.post(
   requireAuth,
   createCustomShortUrl,
 );
+router.get("/analytics", authMiddleware, requireAuth, getUserUrls);
 
 export default router;

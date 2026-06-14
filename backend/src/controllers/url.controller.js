@@ -3,6 +3,7 @@ import Url from "../models/url.model.js";
 import {
   createUrlWithoutUser,
   createUrlWithUser,
+  getUrls,
 } from "../services/url.services.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import { generateShortId } from "../utils/generateShortId.js";
@@ -57,5 +58,17 @@ export const createCustomShortUrl = asyncHandler(async (req, res) => {
   res.status(201).json({
     shortId: shortUrl.shortId,
     shortUrl: `${process.env.BASE_URL}/${shortUrl.shortId}`,
+  });
+});
+
+export const getUserUrls = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+
+  const urls = await getUrls(userId);
+
+  
+
+  res.status(200).json({
+    urls: urls,
   });
 });

@@ -41,7 +41,7 @@ const UrlForm = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <div className="bg-white px-8 py-6 rounded-lg shadow-md w-full max-w-lg">
       <h1 className="text-2xl font-bold text-center mb-6">URL Shortener</h1>
 
       <form className="space-y-3" onSubmit={handleShorten}>
@@ -65,7 +65,7 @@ const UrlForm = () => {
         </button>
 
         {isAuthenticated && (
-          <div className="flex flex-col gap-2 mt-6">
+          <div className="flex flex-col gap-2 mt-4">
             <label
               htmlFor="customUrl"
               className="text-sm font-medium text-gray-800"
@@ -87,7 +87,7 @@ const UrlForm = () => {
       </form>
 
       {shortUrl && (
-        <div className="mt-6">
+        <div className="mt-4">
           <h2 className="text-lg font-semibold mb-2">Your shortened URL:</h2>
 
           <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
@@ -95,7 +95,7 @@ const UrlForm = () => {
               href={shortUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 p-2 block truncate hover:underline"
+              className="flex-1 p-2 block truncate hover:underline font-medium text-blue-600 hover:text-blue-800"
             >
               {shortUrl}
             </a>

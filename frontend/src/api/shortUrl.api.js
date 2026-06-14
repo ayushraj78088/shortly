@@ -14,3 +14,8 @@ export const createShortCustomUrl = async (originalUrl, customShortId) => {
   });
   return data.shortUrl;
 };
+
+export const getUserUrls = async () => {
+  const { data } = await axiosInstance.get("/api/url/analytics");
+  return data.urls;
+};
