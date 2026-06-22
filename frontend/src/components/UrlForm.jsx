@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import { createShortCustomUrl, createShortUrl } from "../api/shortUrl.api";
 import useUserStore from "../store/useUserStore";
+import QRCode from "qrcode";
 
 const UrlForm = () => {
   const [url, setUrl] = useState("");
@@ -9,12 +9,15 @@ const UrlForm = () => {
   const [copied, setCopied] = useState(false);
   const [customUrl, setCustomUrl] = useState("");
   const [error, setError] = useState("");
+  const [qrCode, setQrCode] = useState("");
 
   const isAuthenticated = useUserStore((state) => state.isAuthenticated);
 
   const handleShorten = async (e) => {
     e.preventDefault();
     setError("");
+    setQrCode("");
+    setShortUrl("");
 
     if (!url) return;
 
@@ -27,7 +30,10 @@ const UrlForm = () => {
         newShortUrl = await createShortUrl(url);
       }
 
+      const qrCodeImage = await QRCode.toDataURL(newShortUrl);
+
       setShortUrl(newShortUrl);
+      setQrCode(qrCodeImage);
       setCopied(false);
     } catch (err) {
       setError(err.response?.data?.error || "Something went wrong");
@@ -57,12 +63,9 @@ const UrlForm = () => {
             onChange={(e) => setUrl(e.target.value)}
             required
             placeholder="https://example.com"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline focus:outline-sky-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline focus:outline-sky-500 truncate"
           />
         </div>
-        <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 cursor-pointer">
-          Shorten URL
-        </button>
 
         {isAuthenticated && (
           <div className="flex flex-col gap-2 mt-4">
@@ -73,7 +76,7 @@ const UrlForm = () => {
               Custom URL (optional)
             </label>
             <input
-              type="customUrl"
+              type="text"
               name="customUrl"
               id="customUrl"
               value={customUrl}
@@ -83,11 +86,20 @@ const UrlForm = () => {
             />
           </div>
         )}
+
+        <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 cursor-pointer">
+          Shorten URL
+        </button>
+
         {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
       </form>
 
       {shortUrl && (
-        <div className="mt-4">
+        <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+          <p className="text-green-600 font-medium mb-2">
+            ✓ URL shortened successfully
+          </p>
+
           <h2 className="text-lg font-semibold mb-2">Your shortened URL:</h2>
 
           <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
@@ -110,6 +122,24 @@ const UrlForm = () => {
             >
               {copied ? "Copied!" : "Copy"}
             </button>
+          </div>
+
+          <div className="flex flex-col items-center gap-2 mt-2">
+            <h3 className="font-semibold text-gray-700">QR Code</h3>
+
+            <img
+              src={qrCode}
+              alt="QR Code"
+              className="w-36 h-36 rounded-md shadow-sm hover:scale-105"
+            />
+
+            <a
+              href={qrCode}
+              download="short-url-qrcode.png"
+              className="bg-gray-200 hover:bg-blue-600 text-black hover:text-white px-4 py-2 rounded-lg font-medium transition-all duration-300"
+            >
+              Download QR
+            </a>
           </div>
         </div>
       )}

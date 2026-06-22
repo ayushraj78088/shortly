@@ -7,7 +7,7 @@ const DashboardPage = () => {
   const user = useUserStore((state) => state.user);
 
   return (
-    <div className="min-h-screen bg-slate-300 flex flex-col justify-center items-center text-black">
+    <div className="min-h-screen bg-slate-300 flex flex-col pt-24 items-center text-black">
       <div className="mb-4 mt-8">
         <h1 className="text-3xl font-bold text-gray-900">
           Welcome back, {user?.name} 👋
