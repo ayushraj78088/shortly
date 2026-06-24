@@ -2,8 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserUrls } from "../api/shortUrl.api";
 import { useState } from "react";
 import { Link } from "react-router";
-import { Copy, Check, ArrowLeft } from "lucide-react";
-import PageLoader from "../components/PageLoader";
+import {
+  Copy,
+  Check,
+  ArrowLeft,
+  Loader,
+  Loader2,
+  Loader2Icon,
+  LoaderCircle,
+  LoaderPinwheel,
+  LucideLoader,
+  Ellipsis,
+  LoaderCircleIcon,
+} from "lucide-react";
 
 const AnalyticsPage = () => {
   const [copiedId, setCopiedId] = useState(null);
@@ -17,7 +28,14 @@ const AnalyticsPage = () => {
     queryFn: getUserUrls,
   });
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen gap-3">
+        <Loader className="text-blue-500 size-10 animate-spin" />
+        <p className="text-xl font-semibold">Fetching your URLs...</p>
+      </div>
+    );
+  }
 
   if (error) return <p>Something went wrong</p>;
 

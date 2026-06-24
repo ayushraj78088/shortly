@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createShortCustomUrl, createShortUrl } from "../api/shortUrl.api";
 import useUserStore from "../store/useUserStore";
 import QRCode from "qrcode";
-import Spinner from "./Spinner";
+import { LoaderCircle } from "lucide-react";
 
 const UrlForm = () => {
   const [url, setUrl] = useState("");
@@ -92,10 +92,14 @@ const UrlForm = () => {
           </div>
         )}
 
-        <button className="w-full h-11 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
+        <button
+          type="submit"
+          className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+          disabled={loading}
+        >
           {loading ? (
             <>
-              <Spinner />
+              <LoaderCircle className="size-5 animate-spin" />
               <span>Shortening...</span>
             </>
           ) : (

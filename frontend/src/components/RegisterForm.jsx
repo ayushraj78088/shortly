@@ -2,6 +2,7 @@ import { useState } from "react";
 import { registerUser } from "../api/user.api";
 import useUserStore from "../store/useUserStore";
 import { useNavigate } from "react-router";
+import { LoaderCircle } from "lucide-react";
 
 const RegisterForm = ({ state }) => {
   const [name, setName] = useState("Ayush");
@@ -92,8 +93,19 @@ const RegisterForm = ({ state }) => {
 
         {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
 
-        <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 cursor-pointer">
-          Register
+        <button
+          type="submit"
+          className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+          disabled={loading}
+        >
+          {loading ? (
+            <>
+              <LoaderCircle className="size-5 animate-spin" />
+              <span>Creating account...</span>
+            </>
+          ) : (
+            "Create account"
+          )}
         </button>
       </form>
 

@@ -2,7 +2,7 @@ import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
 import useUserStore from "../store/useUserStore";
-import PageLoader from "../components/PageLoader";
+import { Loader, LoaderCircle } from "lucide-react";
 
 const RootLayout = () => {
   const checkAuth = useUserStore((state) => state.checkAuth);
@@ -13,7 +13,13 @@ const RootLayout = () => {
     checkAuth();
   }, [checkAuth]);
 
-  if (isCheckingAuth) return <PageLoader />;
+  if (isCheckingAuth) {
+    return (
+      <div className="flex justify-center items-center min-h-screen gap-3">
+        <Loader className="text-blue-500 size-10 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div>
