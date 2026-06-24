@@ -3,6 +3,7 @@ import { getUserUrls } from "../api/shortUrl.api";
 import { useState } from "react";
 import { Link } from "react-router";
 import { Copy, Check, ArrowLeft } from "lucide-react";
+import PageLoader from "../components/PageLoader";
 
 const AnalyticsPage = () => {
   const [copiedId, setCopiedId] = useState(null);
@@ -16,7 +17,7 @@ const AnalyticsPage = () => {
     queryFn: getUserUrls,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <PageLoader />;
 
   if (error) return <p>Something went wrong</p>;
 

@@ -4,7 +4,7 @@ import { getCurrentUser } from "../api/user.api";
 const useUserStore = create((set) => ({
   user: null,
   isAuthenticated: false,
-  isCheckingAuth: true,
+  isCheckingAuth: false,
 
   setUser: (user) =>
     set({
@@ -19,20 +19,22 @@ const useUserStore = create((set) => ({
     }),
 
   checkAuth: async () => {
+    set({ isCheckingAuth: true });
+
     try {
       const data = await getCurrentUser();
 
       set({
         user: data.user,
         isAuthenticated: true,
-        isCheckingAuth: false,
       });
     } catch {
       set({
         user: null,
         isAuthenticated: false,
-        isCheckingAuth: false,
       });
+    } finally {
+      set({ isCheckingAuth: false });
     }
   },
 }));

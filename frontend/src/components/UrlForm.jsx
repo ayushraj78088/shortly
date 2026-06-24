@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createShortCustomUrl, createShortUrl } from "../api/shortUrl.api";
 import useUserStore from "../store/useUserStore";
 import QRCode from "qrcode";
+import Spinner from "./Spinner";
 
 const UrlForm = () => {
   const [url, setUrl] = useState("");
@@ -10,6 +11,7 @@ const UrlForm = () => {
   const [customUrl, setCustomUrl] = useState("");
   const [error, setError] = useState("");
   const [qrCode, setQrCode] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const isAuthenticated = useUserStore((state) => state.isAuthenticated);
 
@@ -18,6 +20,7 @@ const UrlForm = () => {
     setError("");
     setQrCode("");
     setShortUrl("");
+    setLoading(true);
 
     if (!url) return;
 
@@ -37,6 +40,8 @@ const UrlForm = () => {
       setCopied(false);
     } catch (err) {
       setError(err.response?.data?.error || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,8 +92,15 @@ const UrlForm = () => {
           </div>
         )}
 
-        <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 cursor-pointer">
-          Shorten URL
+        <button className="w-full h-11 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
+          {loading ? (
+            <>
+              <Spinner />
+              <span>Shortening...</span>
+            </>
+          ) : (
+            "Shorten URL"
+          )}
         </button>
 
         {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
