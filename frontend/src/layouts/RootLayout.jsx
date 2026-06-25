@@ -14,14 +14,6 @@ const RootLayout = () => {
     checkAuth();
   }, [checkAuth]);
 
-  if (isCheckingAuth) {
-    return (
-      <div className="flex justify-center items-center min-h-screen gap-3">
-        <Loader className="text-blue-500 size-10 animate-spin" />
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
