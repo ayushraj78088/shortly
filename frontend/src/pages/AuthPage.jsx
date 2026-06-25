@@ -6,7 +6,7 @@ const AuthPage = () => {
   const [loginForm, setLoginForm] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gray-300 flex flex-col justify-center items-center text-black">
+    <div className="bg-gray-300 pt-24 flex flex-col justify-center items-center text-black">
       {loginForm ? (
         <LoginForm state={setLoginForm} />
       ) : (

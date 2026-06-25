@@ -10,7 +10,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-300 flex flex-col pt-24 items-center text-black">
+    <div className="flex flex-col pt-24 items-center text-black">
       <UrlForm />
 
       <div className="mt-6 text-center max-w-md pb-10">

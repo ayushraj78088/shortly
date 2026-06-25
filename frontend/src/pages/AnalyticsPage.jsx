@@ -50,7 +50,7 @@ const AnalyticsPage = () => {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-20">
+    <div className="mx-auto max-w-6xl px-4 pt-20">
       {/* Header */}
       <div className="mb-4 flex items-center justify-between">
         <div>

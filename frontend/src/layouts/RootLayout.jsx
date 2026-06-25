@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { useEffect } from "react";
 import useUserStore from "../store/useUserStore";
 import { Loader, LoaderCircle } from "lucide-react";
+import Footer from "../components/Footer";
 
 const RootLayout = () => {
   const checkAuth = useUserStore((state) => state.checkAuth);
@@ -22,9 +23,14 @@ const RootLayout = () => {
   }
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <Outlet />
+
+      <div className="flex-1 bg-slate-300">
+        <Outlet />
+      </div>
+
+      <Footer />
     </div>
   );
 };
