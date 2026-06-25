@@ -23,7 +23,7 @@ function Navbar() {
         {/* Logo */}
         <div>
           <Link
-            className="text-3xl font-black bg-linear-to-r from-slate-700 to-blue-500 bg-clip-text text-transparent"
+            className="text-3xl font-black bg-linear-to-r from-slate-700 to-blue-600 bg-clip-text text-transparent"
             to={"/"}
           >
             Shortly
@@ -34,14 +34,14 @@ function Navbar() {
         <div className="flex items-center gap-3">
           {isAuthenticated ? (
             <button
-              className="rounded-lg bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 text-sm font-medium shadow-md transition-colors cursor-pointer"
+              className="rounded-lg bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm font-medium shadow-md transition-colors cursor-pointer"
               onClick={handleLogout}
             >
               Logout
             </button>
           ) : (
             <Link
-              className="rounded-lg bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 text-sm font-medium shadow-md transition-colors cursor-pointer"
+              className="rounded-lg bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm font-medium shadow-md transition-colors cursor-pointer"
               to={"/auth"}
             >
               Get Started

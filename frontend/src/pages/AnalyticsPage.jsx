@@ -30,7 +30,7 @@ const AnalyticsPage = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen gap-3">
+      <div className="flex justify-center items-center h-160 gap-3">
         <Loader className="text-blue-500 size-10 animate-spin" />
         <p className="text-xl font-semibold">Fetching your URLs...</p>
       </div>

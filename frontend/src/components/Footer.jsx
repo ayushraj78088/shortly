@@ -24,7 +24,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="transition-colors duration-200 hover:text-primary"
+            className="transition-all duration-300 hover:text-blue-700 hover:-translate-y-1"
           >
             <FaGithub />
           </a>
@@ -34,7 +34,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="transition-colors duration-200 hover:text-primary"
+            className="transition-all duration-300 hover:text-blue-700 hover:-translate-y-1"
           >
             <FaLinkedin />
           </a>
@@ -44,7 +44,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Portfolio"
-            className="transition-colors duration-200 hover:text-primary"
+            className="transition-all duration-300 hover:text-blue-700 hover:-translate-y-1"
           >
             <FaGlobe />
           </a>

@@ -53,7 +53,7 @@ const UrlForm = () => {
 
   return (
     <div className="bg-white px-8 py-6 rounded-lg shadow-md w-full max-w-lg">
-      <h1 className="text-2xl font-bold text-center mb-6">URL Shortener</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">Shorten Your Link</h1>
 
       <form className="space-y-3" onSubmit={handleShorten}>
         <div className="flex flex-col gap-2">
@@ -94,7 +94,7 @@ const UrlForm = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
           disabled={loading}
         >
           {loading ? (
