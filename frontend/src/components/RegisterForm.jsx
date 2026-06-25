@@ -5,11 +5,11 @@ import { useNavigate } from "react-router";
 import { LoaderCircle } from "lucide-react";
 
 const RegisterForm = ({ state }) => {
-  const [name, setName] = useState("Ayush");
-  const [email, setEmail] = useState("ayush@gmail.com");
-  const [password, setPassword] = useState("12345678");
-  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -95,7 +95,7 @@ const RegisterForm = ({ state }) => {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
           disabled={loading}
         >
           {loading ? (
