@@ -19,3 +19,8 @@ export const getUserUrls = async () => {
   const { data } = await axiosInstance.get("/api/url/analytics");
   return data.urls;
 };
+
+export const redirect = async (shortId) => {
+  const { data } = await axiosInstance.get(`/api/url/resolve/${shortId}`);
+  return data;
+};

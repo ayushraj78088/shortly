@@ -3,6 +3,7 @@ import {
   createCustomShortUrl,
   createShortUrl,
   getUserUrls,
+  resolveShortUrl,
 } from "../controllers/url.controller.js";
 import { authMiddleware, requireAuth } from "../middlewares/auth.middleware.js";
 
@@ -16,5 +17,6 @@ router.post(
   createCustomShortUrl,
 );
 router.get("/analytics", authMiddleware, requireAuth, getUserUrls);
+router.get("/resolve/:shorten", resolveShortUrl)
 
 export default router;

@@ -61,12 +61,22 @@ export const createCustomShortUrl = asyncHandler(async (req, res) => {
   });
 });
 
+export const resolveShortUrl = asyncHandler(async (req, res) => {
+  const { shorten } = req.params;
+
+  const url = await Url.findOne({ shortId: shorten });
+
+  if (!url) throw new ErrorHandler("URL not found", 400);
+
+  return res.status(200).json({
+    originalUrl: url.originalUrl,
+  });
+});
+
 export const getUserUrls = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
   const urls = await getUrls(userId);
-
-  
 
   res.status(200).json({
     urls: urls,
